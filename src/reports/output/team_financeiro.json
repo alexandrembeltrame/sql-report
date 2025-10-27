@@ -1,0 +1,12 @@
+[
+  {
+    "name": "João",
+    "salary": 5500.0,
+    "performance": 88
+  },
+  {
+    "name": "Maria",
+    "salary": 6100.0,
+    "performance": 92
+  }
+]
