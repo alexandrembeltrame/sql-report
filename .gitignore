@@ -1,0 +1,12 @@
+# Banco local
+src/database/company.db
+
+# Arquivos de ambiente
+.env
+
+# Cache do Python
+__pycache__/
+*.__pyc
+
+# Virtual env
+.venv/
