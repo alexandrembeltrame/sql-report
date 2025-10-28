@@ -1,12 +1,58 @@
-# Banco local
-src/database/company.db
-
-# Arquivos de ambiente
-.env
-
-# Cache do Python
-__pycache__/
-*.__pyc
-
-# Virtual env
+# ==========================
+# VIRTUAL ENVIRONMENTS
+# ==========================
 .venv/
+venv/
+ENV/
+env/
+__pycache__/
+*.py[cod]
+
+# ==========================
+# PYTHON STUFF
+# ==========================
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+*.db
+*.sqlite
+.Python
+db.sqlite3
+
+# ==========================
+# TESTS / COVERAGE / BUILD
+# ==========================
+.coverage
+.tox/
+pytest_cache/
+.pytest_cache/
+htmlcov/
+dist/
+build/
+*.egg-info/
+
+# ==========================
+# ALEMBIC / MIGRATIONS
+# ==========================
+migrations/__pycache__/
+migrations/versions/__pycache__/
+migrations/*.pyc
+migrations/versions/*.pyc
+
+# ==========================
+# OS / EDITORS / MISC
+# ==========================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# ==========================
+# ENVIRONMENT VARIABLES
+# ==========================
+.env
+.env.*
