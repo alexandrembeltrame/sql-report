@@ -1,20 +1,17 @@
 # src/database/connection.py
-from sqlalchemy import create_engine, text
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, declarative_base
+from src.core.config import settings
 
-DATABASE_URL = "sqlite:///../db.sqlite3"  # caminho relativo à pasta src
-engine = create_engine(DATABASE_URL, echo=False, future=True)
+DATABASE_URL = settings.DATABASE_URL
 
-def get_connection():
-    """
-    Retorna um context manager (Connection) pronto para o `with`.
-    Uso:
-        with get_connection() as conn:
-            result = conn.execute(text("SELECT 1"))
-    """
-    return engine.connect()
+engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
+SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
+Base = declarative_base()
 
-if __name__ == "__main__":
-    # teste rápido
-    with get_connection() as conn:
-        r = conn.execute(text("SELECT 1"))
-        print(r.fetchall())
+def get_db():
+  db = SessionLocal()
+  try:
+    yield db
+  finally:
+    db.close()
