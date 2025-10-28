@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from src.core.config import settings
-from src.api.routes import status, health, version
+from src.api.routes import status, health, version, employee_routes
 
 app = FastAPI(
     title="SQL Report API",
@@ -12,6 +12,7 @@ app = FastAPI(
 app.include_router(status.router)
 app.include_router(health.router)
 app.include_router(version.router)
+app.include_router(employee_routes.router)
 
 @app.get("/")
 def root():
