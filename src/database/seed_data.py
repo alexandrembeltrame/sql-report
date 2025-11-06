@@ -1,16 +1,17 @@
 # src/database/seed_data.py
 from sqlalchemy import text
-from src.database.connection import get_connection
+from src.database.connection import SessionLocal
 
 def seed():
     schema = """
-    CREATE TABLE IF NOT EXISTS employees (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT NOT NULL,
-        department TEXT NOT NULL,
-        salary REAL NOT NULL,
-        performance INTEGER NOT NULL
-    );
+   CREATE TABLE IF NOT EXISTS employees (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    department TEXT NOT NULL,
+    salary REAL NOT NULL,
+    performance INTEGER NOT NULL
+);
+
     """
     data = [
         ("João", "Financeiro", 5500, 88),
@@ -23,11 +24,12 @@ def seed():
         ("Julia", "Vendas", 6700, 95),
     ]
 
-    with get_connection() as conn:
-        conn.execute(text(schema))
-        conn.execute(text("DELETE FROM employees"))
+    db = SessionLocal()
+    try:
+        db.execute(text(schema))
+        db.execute(text("DELETE FROM employees"))
         for name, dept, sal, perf in data:
-            conn.execute(
+            db.execute(
                 text(
                     """
                     INSERT INTO employees (name, department, salary, performance)
@@ -36,8 +38,14 @@ def seed():
                 ),
                 {"name": name, "dept": dept, "sal": sal, "perf": perf},
             )
-        conn.commit()
-    print("✅ Banco populado com sucesso.")
+        db.commit()
+        print("✅ Banco populado com sucesso.")
+    except Exception as e:
+        db.rollback()
+        print(f"❌ Erro ao popular banco: {e}")
+    finally:
+        db.close()
+
 
 if __name__ == "__main__":
     seed()

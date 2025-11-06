@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from src.models.employee_model import Employee
+from database.models.models import Employee
 from src.schemas.employee_schema import EmployeeCreate, EmployeeUpdate
 
 class EmployeeRepository:

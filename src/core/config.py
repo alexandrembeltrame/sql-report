@@ -1,19 +1,22 @@
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic_settings import BaseSettings
+
 
 class Settings(BaseSettings):
-    DB_USER: str = "postgres"
-    DB_PASSWORD: str = "postgres"
-    DB_HOST: str = "localhost"
-    DB_PORT: int = 5432
-    DB_NAME: str = "sql_report"
-
-    model_config = SettingsConfigDict(env_file=".env", case_sensitive=True)
+    POSTGRES_USER: str
+    POSTGRES_PASSWORD: str
+    POSTGRES_DB: str
+    POSTGRES_HOST: str
+    POSTGRES_PORT: str
 
     @property
-    def DATABASE_URL(self):
+    def database_url(self):
         return (
-            f'postgresql+psycopg2://{self.DB_USER}:{self.DB_PASSWORD}'
-            f'@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}'
+            f"postgresql+psycopg2://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}"
+            f"@{self.POSTGRES_HOST}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
         )
+
+    class Config:
+        env_file = ".env"
+
 
 settings = Settings()

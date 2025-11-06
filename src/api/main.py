@@ -1,12 +1,15 @@
 from fastapi import FastAPI
-from src.core.config import settings
-from src.api.routes import status, health, version, employee_routes, report_routes
+from src.database.connection import Base, engine
+from src.api.routes.employee_routes import router as employee_router
+from src.api.routes.report_routes import router as report_router
 from fastapi.middleware.cors import CORSMiddleware
 
+Base.metadata.create_all(bind=engine)
+
 app = FastAPI(
-    title="SQL Report API",
-    version="1.0.0",
-    description="API para geração de relatórios corporativos"
+    title="API SQL Report",
+    description="API para consulta de relatórios armazenados no Postgres",
+    version="1.0.0"
 )
 
 app.add_middleware(
@@ -20,17 +23,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# registra a rota /status
-app.include_router(status.router)
-app.include_router(health.router)
-app.include_router(version.router)
-app.include_router(employee_routes.router)
-app.include_router(report_routes.router)
+app.include_router(employee_router)
+app.include_router(report_router)
 
-@app.get("/")
-def root():
-    return {"message": "API SQL Report funcionando!"}
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run("src.api.main:app", host="127.0.0.1", port=8000, reload=True)
+@app.get("/", tags=["Root"])
+def read_root():
+    return {"message": "🚀 API SQL Report está online!"}

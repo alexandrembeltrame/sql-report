@@ -1,7 +1,7 @@
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
-from src.models.employee_model import Employee
+from database.models.employee_model_backup import Employee
 
 def get_employee_report(db: Session):
   """

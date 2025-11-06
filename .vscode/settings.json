@@ -1,5 +1,13 @@
 {
   "cSpell.words": [
     "psycopg"
-  ]
+  ],
+  "python.analysis.extraPaths": [
+    "./src",
+    "C:/Users/mbale/www/sql-report/src"
+  ],
+  "python.analysis.autoSearchPaths": true,
+  "python.analysis.useImportHeuristic": true,
+  "python.analysis.diagnosticMode": "workspace",
+  "python.defaultInterpreterPath": "C:\\Users\\mbale\\www\\sql-report\\.venv\\Scripts\\python.exe"
 }

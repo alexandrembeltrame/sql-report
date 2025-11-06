@@ -1,22 +1,28 @@
 from fastapi import FastAPI
 from src.database.connection import Base, engine
 from src.api.routes.employee_routes import router as employee_router
+from src.api.routes.report_routes import router as report_router
+from fastapi.middleware.cors import CORSMiddleware
 
-# Cria as tabelas no banco se ainda não existirem
 Base.metadata.create_all(bind=engine)
 
-# Instância principal da aplicação FastAPI
 app = FastAPI(
-    title="API de Gestão de Funcionários",
-    description="CRUD completo de funcionários com FastAPI + SQLAlchemy",
+    title="API SQL Report",
+    description="API para consulta de relatórios armazenados no Postgres",
     version="1.0.0"
 )
 
-# Registro das rotas (Routers)
-app.include_router(employee_router)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],  # Vite
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
+app.include_router(employee_router)
+app.include_router(report_router)
 
 @app.get("/", tags=["Root"])
 def read_root():
-    """Rota raiz para verificação de status."""
-    return {"message": "🚀 API de Gestão de Funcionários está online!"}
+    return {"message": "🚀 API SQL Report está online!"}
