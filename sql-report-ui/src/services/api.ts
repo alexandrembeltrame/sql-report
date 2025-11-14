@@ -1,22 +1,37 @@
-// src/services/api.ts
-
-// ✅ O proxy do Vite já encaminha /reports para o backend (localhost:8000)
-// então não precisamos mais do import.meta.env aqui
-
 export async function fetchEmployees() {
   try {
-    const response = await fetch("/reports/employees"); // o proxy do Vite cuida do host
+    const response = await fetch("/api/reports/employees");
 
     if (!response.ok) {
-      console.error("❌ Erro HTTP:", response.status, response.statusText);
       throw new Error("Erro ao buscar relatório de funcionários");
     }
 
     const data = await response.json();
-    console.log("✅ Dados recebidos:", data);
+    console.log("✅ Dados recebidos employees:", data);
+
+    return {
+      results: Array.isArray(data.results) ? data.results : [],
+    };
+  } catch (err) {
+    console.error("❌ Erro de fetch employees:", err);
+    throw err;
+  }
+}
+
+export async function fetchFinances() {
+  try {
+    const response = await fetch("/api/finances");
+
+    if (!response.ok) {
+      throw new Error("Erro ao buscar relatório financeiro");
+    }
+
+    const data = await response.json();
+    console.log("✅ Dados financeiros recebidos:", data);
+
     return data;
   } catch (err) {
-    console.error("❌ Erro de fetch:", err);
+    console.error("❌ Erro de fetch finances:", err);
     throw err;
   }
 }

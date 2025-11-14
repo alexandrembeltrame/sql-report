@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, ForeignKey
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, Date
 from sqlalchemy.orm import relationship
 from src.database.connection import Base
 
@@ -24,3 +24,13 @@ class Report(Base):
     employee_id = Column(Integer, ForeignKey("employees.id"))
 
     employee = relationship("Employee", back_populates="reports")
+
+class Finance(Base):
+    __tablename__ = "finances"
+
+    id = Column(Integer, primary_key=True, index=True)
+    date = Column(Date, nullable=False)
+    description = Column(String, nullable=False)
+    doc_number = Column(String, nullable=False)
+    credit = Column(Float, nullable=False)
+    debit = Column(Float, nullable=False)

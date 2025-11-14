@@ -44,7 +44,7 @@ export default function EmployeeReportTable() {
   }, [search, data]);
 
   if (loading)
-    return <p className="text-center text-gray-500">Carregando...</p>;
+    return <p className="text-center text-zinc-300">Carregando...</p>;
   if (error) return <p className="text-center text-red-500">{error}</p>;
 
   return (
@@ -63,13 +63,13 @@ export default function EmployeeReportTable() {
 
       <div className="overflow-x-auto rounded-lg shadow">
         <table className="min-w-full border-collapse bg-white">
-          <thead className="bg-gray-100 sticky top-0">
+          <thead className="bg-gray-900 sticky top-0">
             <tr>
               {["ID", "Nome", "Departamento", "Salário", "Performance"].map(
                 (title) => (
                   <th
                     key={title}
-                    className="border-b px-4 py-2 text-left font-semibold text-gray-700"
+                    className="border-b px-4 py-2 text-left font-semibold text-gray-300"
                   >
                     {title}
                   </th>
@@ -82,8 +82,8 @@ export default function EmployeeReportTable() {
               <tr
                 key={e.id}
                 className={`${
-                  i % 2 === 0 ? "bg-gray-50" : "bg-white"
-                } hover:bg-blue-50 transition`}
+                  i % 2 === 0 ? "bg-zinc-900" : "bg-zinc-950"
+                } hover:bg-zinc-800 transition`}
               >
                 <td className="border-b px-4 py-2">{e.id}</td>
                 <td className="border-b px-4 py-2">{e.name}</td>
@@ -98,7 +98,7 @@ export default function EmployeeReportTable() {
         </table>
       </div>
 
-      <p className="text-sm text-gray-500 mt-3 text-center">
+      <p className="text-sm text-gray-300 mt-3 text-center">
         Total: {filtered.length} funcionários
       </p>
     </div>

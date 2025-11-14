@@ -1,17 +1,27 @@
 # src/database/seed_data.py
 from sqlalchemy import text
 from src.database.connection import SessionLocal
+from src.database.models.models import Finance, Employee, Report
+
+def seed_finances(session):
+    finances = [
+        Finance(departament="RH", expenses=15000, revenue=45000),
+        Finance(departament="TI", expenses=30000, revenue=60000),
+        Finance(departament="Vendas", expenses=45000, revenue=120000),
+    ]
+
+    session.add_all(finances)
+    session.commit()
 
 def seed():
     schema = """
-   CREATE TABLE IF NOT EXISTS employees (
-    id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL,
-    department TEXT NOT NULL,
-    salary REAL NOT NULL,
-    performance INTEGER NOT NULL
-);
-
+    CREATE TABLE IF NOT EXISTS employees (
+        id SERIAL PRIMARY KEY,
+        name TEXT NOT NULL,
+        department TEXT NOT NULL,
+        salary REAL NOT NULL,
+        performance INTEGER NOT NULL
+    );
     """
     data = [
         ("João", "Financeiro", 5500, 88),
@@ -27,7 +37,7 @@ def seed():
     db = SessionLocal()
     try:
         db.execute(text(schema))
-        db.execute(text("DELETE FROM employees"))
+        db.execute(text("DELETE FROM employees"))  # Limpa os dados antigos
         for name, dept, sal, perf in data:
             db.execute(
                 text(

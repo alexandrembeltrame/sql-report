@@ -3,6 +3,7 @@ from src.database.connection import Base, engine
 from src.api.routes.employee_routes import router as employee_router
 from src.api.routes.report_routes import router as report_router
 from fastapi.middleware.cors import CORSMiddleware
+from src.api.routes.finance import router as finance_router
 
 Base.metadata.create_all(bind=engine)
 
@@ -22,6 +23,7 @@ app.add_middleware(
 
 app.include_router(employee_router)
 app.include_router(report_router)
+app.include_router(finance_router)
 
 @app.get("/", tags=["Root"])
 def read_root():

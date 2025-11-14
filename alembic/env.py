@@ -1,15 +1,14 @@
-from logging.config import fileConfig
-import os
 import sys
-
+import os
+from logging.config import fileConfig
 from sqlalchemy import engine_from_config, pool
 from alembic import context
 
-# Caminho absoluto até a pasta /app/src dentro do container
-BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src"))
-if BASE_DIR not in sys.path:
-    sys.path.append(BASE_DIR)
+# --- adiciona os caminhos para o Alembic encontrar o src ---
+sys.path.apeend(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
 
+# --- Importa o Base correto ---
 from src.database.models import Base
 
 # this is the Alembic Config object, which provides
