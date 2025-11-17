@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 class EmployeeBase(BaseModel):
   name: str
@@ -6,12 +6,11 @@ class EmployeeBase(BaseModel):
   salary: float
   performance: int
 
-  class EmployeeCreate(EmployeeBase):
-    pass
+class EmployeeCreate(EmployeeBase):
+  pass
 
-  class EmployeeOut(EmployeeBase):
-    id: int
+class EmployeeOut(EmployeeBase):
+  id: int
 
-    class Config:
-      orm_mode = True
+  model_config = ConfigDict(from_attributes=True)
   

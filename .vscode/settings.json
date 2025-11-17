@@ -9,5 +9,6 @@
   "python.analysis.autoSearchPaths": true,
   "python.analysis.useImportHeuristic": true,
   "python.analysis.diagnosticMode": "workspace",
-  "python.defaultInterpreterPath": "C:\\Users\\mbale\\www\\sql-report\\.venv\\Scripts\\python.exe"
+  "python.defaultInterpreterPath": "C:\\Users\\mbale\\www\\sql-report\\.venv\\Scripts\\python.exe",
+  "python.analysis.typeCheckingMode": "off"
 }

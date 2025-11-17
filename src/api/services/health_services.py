@@ -1,10 +1,12 @@
-import sqlite3
+from sqlalchemy import text
+from src.database.connection import SessionLocal
 
 def check_database_connection():
   try:
-    conn = sqlite3.connect("src/database/company.db")
-    conn.execute("SELECT 1")
-    conn.close()
+    db = SessionLocal()
+    db.execute(text("SELECT 1"))
+    db.close()
+    
     return "connected"
   except Exception as e:
     return f"error: {str(e)}"

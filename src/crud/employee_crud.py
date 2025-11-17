@@ -3,7 +3,7 @@ from src.database.models.models import Employee
 from src.schemas.employee_schema import EmployeeCreate, EmployeeUpdate
 
 def create_employee(db: Session, employee: EmployeeCreate):
-    db_employee = Employee(**employee.dict())
+    db_employee = Employee(**employee.model_dump())
     db.add(db_employee)
     db.commit()
     db.refresh(db_employee)
@@ -19,7 +19,7 @@ def update_employee(db: Session, employee_id: int, employee: EmployeeUpdate):
     db_employee = db.query(Employee).filter(Employee.id == employee_id).first()
     if not db_employee:
         return None
-    for key, value in employee.dict(exclude_unset=True).items():
+    for key, value in employee.model_dump(exclude_unset=True).items():
         setattr(db_employee, key, value)
     db.commit()
     db.refresh(db_employee)

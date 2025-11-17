@@ -1,33 +1,21 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from datetime import date
 from typing import Optional
 
-class FinanceCreate(BaseModel):
-  date: date
-  description: str
-  doc_number: str
-  credit: Optional[float] = 0.0
-  debit: Optional[float] = 0.0
-
-  class FinanceBase(BaseModel):
+class FinanceBase(BaseModel):
     date: date
     description: str
     doc_number: str
     credit: Optional[float] = 0.0
     debit: Optional[float] = 0.0
-  
-  class FinanceCreate(FinanceBase):
+
+class FinanceCreate(FinanceBase):
     pass
 
-  class FinanceUpdate(FinanceBase):
-    date: date
-    description: str
-    doc_number: str
-    credit: Optional[float] = 0.0
-    debit: Optional[float] = 0.0
+class FinanceUpdate(FinanceBase):
+    pass
 
-  class FinanceResponse(FinanceBase):
+class FinanceResponse(FinanceBase):
     id: int
 
-    class Config:
-      from_attributes = True
+    model_config = ConfigDict(from_attributes=True)

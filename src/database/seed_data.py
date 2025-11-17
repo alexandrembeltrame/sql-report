@@ -56,6 +56,5 @@ def seed():
     finally:
         db.close()
 
-
 if __name__ == "__main__":
     seed()
